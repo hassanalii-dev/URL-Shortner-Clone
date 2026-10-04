@@ -296,28 +296,28 @@ const faqs = [
   {
     question: "How will TinyURL bill me for my subscription?",
     answer:
-      "Paid subscribers have the option to be billed automatically using the credit card you set for auto-payment. Billing takes place on a monthly or annual basis.",
+      "Paid subscribers have the option to be billed automatically using the credit card you set for auto-payment. Billing takes place on a monthly or annual basis — depending on the option you selected when you purchased or last updated your subscription.",
   },
   {
     question: "How do I view my invoices?",
     answer:
-      "You can find the list of your invoices on the Billing Management page of your Account Settings.",
+      "You can find the list of your invoices on the Billing Management page of your Account Settings, when logged into an account with a paid subscription.",
   },
   {
     question: "How do I switch to a different plan?",
     answer:
-      "When logged into an account with a paid subscription, you can change plans from the Subscription page in your Account Settings.",
+      "When logged into an account with a paid subscription, you can change plans by navigating to the ‘Subscription’ page, in your Account Settings. From there, you can easily switch plans and payment frequency (ex. Monthly to Annual).",
   },
   {
     question: "How do I update my payment details?",
     answer:
-      "You can update your payment details from the Payment Method page of your account settings.",
+      "You can update your payment details from the Payment Method page of your account settings, when logged into an account with a paid subscription.",
   },
   {
     question:
       "Can I change my subscription from annual to monthly payments?",
     answer:
-      "Yes. You can change your subscription from annual to monthly from the Subscription page of your Account Settings.",
+      "Yes, you can change your subscription from annual to monthly from the Subscription page of your Account Settings. It's as simple as switching a toggle bar to your new billing period preference. Note: Changes in your subscription always apply at the beginning of the next billing period.",
   },
 ];
 
