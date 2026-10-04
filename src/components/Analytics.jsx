@@ -292,7 +292,6 @@ function Analytics() {
                 text-white
                 transition-all
                 duration-200
-                hover:-translate-y-[2px]
                 hover:bg-[#087f91]
                 hover:shadow-lg
                 max-[500px]:w-full
