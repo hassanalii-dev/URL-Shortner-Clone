@@ -158,8 +158,6 @@ function Footer() {
             max-[900px]:gap-[45px]
           "
         >
-          {/* LEFT SIDE */}
-
           <div
             className="
               grid
@@ -181,8 +179,6 @@ function Footer() {
           >
             {footerData.map((column) => (
               <div key={column.title}>
-                {/* COLUMN TITLE */}
-
                 <h3
                   className="
                     mb-[20px]
@@ -196,8 +192,6 @@ function Footer() {
                 >
                   {column.title}
                 </h3>
-
-                {/* LINKS */}
 
                 <div className="flex flex-col items-start gap-[11px]">
                   {column.links.map((link) => (
@@ -223,8 +217,6 @@ function Footer() {
             ))}
           </div>
 
-          {/* RIGHT SIDE */}
-
           <div
             className="
               flex
@@ -236,8 +228,6 @@ function Footer() {
               max-[900px]:text-left
             "
           >
-            {/* SOCIAL ICONS */}
-
             <div
               className="
                 mb-[28px]
@@ -359,8 +349,6 @@ function Footer() {
               </a>
             </div>
 
-            {/* LOGO */}
-
             <div
               className="
                 mb-[18px]
@@ -377,8 +365,6 @@ function Footer() {
             >
               TINYURL
             </div>
-
-            {/* COPYRIGHT */}
 
             <p
               className="

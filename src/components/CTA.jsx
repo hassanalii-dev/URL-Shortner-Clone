@@ -20,8 +20,6 @@ function CTA() {
           max-[600px]:w-full
         "
       >
-        {/* HEADING */}
-
         <h2
           className="
             mb-[20px]
@@ -40,8 +38,6 @@ function CTA() {
         >
           Ready for Shorter, Smarter Links?
         </h2>
-
-        {/* DESCRIPTION */}
 
         <p
           className="
@@ -62,8 +58,6 @@ function CTA() {
           platform. Create a free account or subscribe to a paid plan today!
         </p>
 
-        {/* BUTTONS */}
-
         <div
           className="
             flex
@@ -75,8 +69,6 @@ function CTA() {
             max-[500px]:w-full
           "
         >
-          {/* VIEW PLANS */}
-
           <button
             className="
               rounded-[6px]
@@ -95,8 +87,6 @@ function CTA() {
           >
             View Plans
           </button>
-
-          {/* CREATE FREE ACCOUNT */}
 
           <button
             className="

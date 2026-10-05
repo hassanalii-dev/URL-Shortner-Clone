@@ -12,10 +12,6 @@ import Navbar from "../components/Navbar.jsx";
 import CTA from "../components/CTA.jsx";
 import Footer from "../components/Footer.jsx";
 
-/* =========================================================
-   FEATURE CATEGORIES
-========================================================= */
-
 const categories = [
   "Monthly Volumes",
   "Link Management",
@@ -23,10 +19,6 @@ const categories = [
   "Monitoring & Analytics",
   "Customer Support",
 ];
-
-/* =========================================================
-   PRO SLIDER PLANS
-========================================================= */
 
 const proPlans = [
   {
@@ -65,10 +57,6 @@ const proPlans = [
     linkOverage: "+$4.00 per 100 additional links*",
   },
 ];
-
-/* =========================================================
-   BULK SLIDER PLANS
-========================================================= */
 
 const bulkPlans = [
   {
@@ -120,10 +108,6 @@ const bulkPlans = [
     clickOverage: "+$0.15 per 1000 additional clicks*",
   },
 ];
-
-/* =========================================================
-   FEATURE BREAKDOWN DATA
-========================================================= */
 
 const featureSections = [
   {
@@ -283,10 +267,6 @@ const featureSections = [
   },
 ];
 
-/* =========================================================
-   FAQ
-========================================================= */
-
 const faqs = [
   {
     question: "What payment methods do you support?",
@@ -321,17 +301,9 @@ const faqs = [
   },
 ];
 
-/* =========================================================
-   FORMAT NUMBER
-========================================================= */
-
 function formatNumber(value) {
   return value.toLocaleString("en-US");
 }
-
-/* =========================================================
-   CUSTOM RANGE SLIDER
-========================================================= */
 
 function PricingSlider({
   plans,
@@ -347,8 +319,6 @@ function PricingSlider({
 
   return (
     <div className="mt-[17px] max-[600px]:mt-[15px]">
-      {/* RANGE LABELS */}
-
       <div className="flex items-center justify-between">
         <span className="text-[12px] font-medium text-[#111827] max-[450px]:text-[11px]">
           {leftLabel}
@@ -358,8 +328,6 @@ function PricingSlider({
           {rightLabel}
         </span>
       </div>
-
-      {/* SLIDER */}
 
       <div className="relative mt-[7px] h-[18px]">
         <div
@@ -466,10 +434,6 @@ function PricingSlider({
   );
 }
 
-/* =========================================================
-   PLAN CARD
-========================================================= */
-
 function PlanCard({
   title,
   price,
@@ -505,13 +469,9 @@ function PlanCard({
         max-[450px]:py-[23px]
       "
     >
-      {/* TITLE */}
-
       <h3 className="text-[20px] font-semibold text-[#111827] max-[600px]:text-[19px]">
         {title}
       </h3>
-
-      {/* PRICE */}
 
       <div className="mt-[8px] flex items-baseline">
         <span className="text-[27px] font-bold text-[#111827] max-[600px]:text-[25px]">
@@ -523,13 +483,9 @@ function PlanCard({
         </span>
       </div>
 
-      {/* ANNUAL */}
-
       <div className="mt-[3px] text-[13px] text-[#111827]">
         ({annualPrice} / yr)
       </div>
-
-      {/* DESCRIPTION */}
 
       <p
         className="
@@ -545,8 +501,6 @@ function PlanCard({
         {description}
       </p>
 
-      {/* SLIDER */}
-
       {slider && (
         <PricingSlider
           plans={slider.plans}
@@ -556,8 +510,6 @@ function PlanCard({
           rightLabel={slider.rightLabel}
         />
       )}
-
-      {/* FEATURES */}
 
       <div
         className="
@@ -609,8 +561,6 @@ function PlanCard({
         ))}
       </div>
 
-      {/* BUTTON */}
-
       <button
         type="button"
         className="
@@ -633,10 +583,6 @@ function PlanCard({
     </div>
   );
 }
-
-/* =========================================================
-   FEATURE CELL
-========================================================= */
 
 function FeatureCell({ value }) {
   if (value === true) {
@@ -666,10 +612,6 @@ function FeatureCell({ value }) {
   );
 }
 
-/* =========================================================
-   PLANS PAGE
-========================================================= */
-
 function Plans() {
   const [annual, setAnnual] = useState(false);
 
@@ -685,10 +627,6 @@ function Plans() {
   const currentPro = proPlans[proIndex];
 
   const currentBulk = bulkPlans[bulkIndex];
-
-  /* =======================================================
-     INTERSECTION OBSERVER
-  ======================================================= */
 
   useEffect(() => {
     const observers = [];
@@ -728,10 +666,6 @@ function Plans() {
     };
   }, []);
 
-  /* =======================================================
-     SCROLL TO FEATURE
-  ======================================================= */
-
   function scrollToSection(title) {
     const section = featureSections.find(
       (item) => item.title === title
@@ -752,10 +686,6 @@ function Plans() {
   return (
     <div className="min-h-screen bg-[#f7f8f8] text-[#111827] font-sans">
       <Navbar />
-
-      {/* ===================================================
-          HERO / PLANS
-      =================================================== */}
 
       <section className="bg-[#f7f8f8]">
         <div
@@ -779,8 +709,6 @@ function Plans() {
             max-[450px]:w-[calc(100%-20px)]
           "
         >
-          {/* HEADER */}
-
           <div
             className="
               flex
@@ -806,8 +734,6 @@ function Plans() {
             >
               Find a plan that meets your needs
             </h1>
-
-            {/* MONTHLY / ANNUALLY */}
 
             <div
               className="
@@ -894,10 +820,6 @@ function Plans() {
             </div>
           </div>
 
-          {/* =================================================
-              PLAN CARDS
-          ================================================= */}
-
           <div
             className="
               mt-[57px]
@@ -915,8 +837,6 @@ function Plans() {
               max-[700px]:gap-[16px]
             "
           >
-            {/* INTRO */}
-
             <div
               className="
                 pr-[25px]
@@ -957,8 +877,6 @@ function Plans() {
               </p>
             </div>
 
-            {/* PRO */}
-
             <PlanCard
               title={currentPro.title}
               price={`$${
@@ -993,8 +911,6 @@ function Plans() {
               ]}
               button="Subscribe Now"
             />
-
-            {/* BULK */}
 
             <PlanCard
               title={currentBulk.title}
@@ -1033,8 +949,6 @@ function Plans() {
               ]}
               button="Subscribe Now"
             />
-
-            {/* ENTERPRISE */}
 
             <div
               className="
@@ -1132,10 +1046,6 @@ function Plans() {
         </div>
       </section>
 
-      {/* =====================================================
-          FEATURE BREAKDOWN
-      ===================================================== */}
-
       <section className="bg-[#f7f8f8]">
         <div
           className="
@@ -1175,8 +1085,6 @@ function Plans() {
             included in our subscription plans so you can
             find the one that works for you.
           </p>
-
-          {/* BILLING TOGGLE */}
 
           <div className="mt-[20px]">
             <div
@@ -1235,8 +1143,6 @@ function Plans() {
             </div>
           </div>
 
-          {/* TABLE */}
-
           <div
             className="
               mt-[38px]
@@ -1250,8 +1156,6 @@ function Plans() {
               max-[600px]:mt-[30px]
             "
           >
-            {/* CATEGORY MENU */}
-
             <aside
               className="
                 sticky
@@ -1305,8 +1209,6 @@ function Plans() {
               </div>
             </aside>
 
-            {/* TABLE */}
-
             <div
               className="
                 min-w-0
@@ -1314,8 +1216,6 @@ function Plans() {
                 max-[700px]:overflow-x-auto
               "
             >
-              {/* TABLE HEADER */}
-
               <div
                 className="
                   grid
@@ -1391,8 +1291,6 @@ function Plans() {
                   </div>
                 ))}
               </div>
-
-              {/* SECTIONS */}
 
               {featureSections.map((section) => (
                 <div
@@ -1489,10 +1387,6 @@ function Plans() {
         </div>
       </section>
 
-      {/* =====================================================
-          TRUSTED USERS
-      ===================================================== */}
-
       <section className="bg-[#178796]">
         <div
           className="
@@ -1504,8 +1398,6 @@ function Plans() {
             max-[900px]:grid-cols-1
           "
         >
-          {/* IMAGE */}
-
           <div
             className="
               min-h-[420px]
@@ -1531,8 +1423,6 @@ function Plans() {
               "
             />
           </div>
-
-          {/* CONTENT */}
 
           <div
             className="
@@ -1644,10 +1534,6 @@ function Plans() {
           </div>
         </div>
       </section>
-
-      {/* =====================================================
-          FAQ
-      ===================================================== */}
 
       <section
         className="

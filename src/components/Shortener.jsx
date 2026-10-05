@@ -89,8 +89,6 @@ function Shortener({ onCreate }) {
           max-[600px]:rounded-[8px]
         "
       >
-        {/* TABS */}
-
         <div
           className="
             flex
@@ -152,8 +150,6 @@ function Shortener({ onCreate }) {
           </button>
         </div>
 
-        {/* BODY */}
-
         <div
           className="
             px-[23px]
@@ -171,8 +167,6 @@ function Shortener({ onCreate }) {
             max-[400px]:pt-[19px]
           "
         >
-          {/* LONG URL */}
-
           <label
             className="
               mb-[10px]
@@ -234,8 +228,6 @@ function Shortener({ onCreate }) {
             "
           />
 
-          {/* DOMAIN + ALIAS */}
-
           <div
             className="
               mt-[23px]
@@ -250,8 +242,6 @@ function Shortener({ onCreate }) {
               max-[600px]:gap-[17px]
             "
           >
-            {/* DOMAIN */}
-
             <div>
               <label
                 className="
@@ -330,8 +320,6 @@ function Shortener({ onCreate }) {
                 />
               </div>
             </div>
-
-            {/* ALIAS */}
 
             <div>
               <label
@@ -435,8 +423,6 @@ function Shortener({ onCreate }) {
             </div>
           </div>
 
-          {/* ERROR */}
-
           {error && (
             <div
               className="
@@ -460,8 +446,6 @@ function Shortener({ onCreate }) {
               {error}
             </div>
           )}
-
-          {/* SHORTEN BUTTON */}
 
           <button
             onClick={createLink}
@@ -491,8 +475,6 @@ function Shortener({ onCreate }) {
               ? "Shorten Link"
               : "Generate QR Code"}
           </button>
-
-          {/* TERMS */}
 
           <p
             className="
@@ -532,8 +514,6 @@ function Shortener({ onCreate }) {
             </a>
             .
           </p>
-
-          {/* RESULT */}
 
           {result && (
             <div

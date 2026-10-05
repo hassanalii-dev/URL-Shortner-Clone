@@ -101,10 +101,6 @@ function Navbar() {
       "
       onMouseLeave={closeDesktopMenu}
     >
-      {/* =====================================================
-          DESKTOP NAVBAR
-      ===================================================== */}
-
       <div
         className="
           mx-auto
@@ -121,8 +117,6 @@ function Navbar() {
           max-[760px]:hidden
         "
       >
-        {/* LOGO */}
-
         <a
           href="/"
           className="
@@ -142,10 +136,6 @@ function Navbar() {
           TINYURL
         </a>
 
-        {/* =====================================================
-            DESKTOP NAVIGATION
-        ===================================================== */}
-
         <nav
           className="
             ml-[50px]
@@ -161,8 +151,6 @@ function Navbar() {
           "
           onMouseLeave={() => setHoveredItem(null)}
         >
-          {/* PLANS */}
-
           <a
             href="/plans"
             onMouseEnter={() => setHoveredItem("plans")}
@@ -195,8 +183,6 @@ function Navbar() {
           >
             Plans
           </a>
-
-          {/* FEATURES */}
 
           <button
             type="button"
@@ -234,8 +220,6 @@ function Navbar() {
             Features
           </button>
 
-          {/* DOMAINS */}
-
           <a
             href="/domains"
             onMouseEnter={() => setHoveredItem("domains")}
@@ -268,8 +252,6 @@ function Navbar() {
           >
             Domains
           </a>
-
-          {/* RESOURCES */}
 
           <button
             type="button"
@@ -308,10 +290,6 @@ function Navbar() {
           </button>
         </nav>
 
-        {/* =====================================================
-            RIGHT SIDE BUTTONS
-        ===================================================== */}
-
         <div
           className="
             ml-auto
@@ -323,8 +301,6 @@ function Navbar() {
             max-[1100px]:gap-[16px]
           "
         >
-          {/* LOGIN */}
-
           <button
             type="button"
             className="
@@ -342,8 +318,6 @@ function Navbar() {
           >
             Log In
           </button>
-
-          {/* SIGN UP */}
 
           <button
             type="button"
@@ -371,10 +345,6 @@ function Navbar() {
           </button>
         </div>
       </div>
-
-      {/* =====================================================
-          DESKTOP MEGA MENU
-      ===================================================== */}
 
       {activeMenu && (
         <div
@@ -419,8 +389,6 @@ function Navbar() {
               max-[900px]:gap-[25px]
             "
           >
-            {/* DROPDOWN HEADING */}
-
             <div
               className="
                 self-center
@@ -437,8 +405,6 @@ function Navbar() {
               {activeMenu === "features" && "Features"}
               {activeMenu === "resources" && "Resources"}
             </div>
-
-            {/* DROPDOWN ITEMS */}
 
             <div
               className="
@@ -470,8 +436,6 @@ function Navbar() {
                       text-[#111827]
                     "
                   >
-                    {/* ICON */}
-
                     {Icon && (
                       <div
                         className="
@@ -489,8 +453,6 @@ function Navbar() {
                         />
                       </div>
                     )}
-
-                    {/* TEXT */}
 
                     <div className="min-w-0">
                       <h3
@@ -536,10 +498,6 @@ function Navbar() {
         </div>
       )}
 
-      {/* =====================================================
-          MOBILE TOP NAVBAR
-      ===================================================== */}
-
       <div
         className="
           hidden
@@ -553,8 +511,6 @@ function Navbar() {
           max-[500px]:px-[15px]
         "
       >
-        {/* MOBILE LOGO */}
-
         <a
           href="/"
           onClick={closeMobileMenu}
@@ -572,8 +528,6 @@ function Navbar() {
         >
           TINYURL
         </a>
-
-        {/* MOBILE MENU BUTTON */}
 
         <button
           type="button"
@@ -617,10 +571,6 @@ function Navbar() {
         </button>
       </div>
 
-      {/* =====================================================
-          MOBILE MENU
-      ===================================================== */}
-
       {mobileOpen && (
         <div
           className="
@@ -639,8 +589,6 @@ function Navbar() {
             max-[500px]:pb-[18px]
           "
         >
-          {/* PLANS */}
-
           <a
             href="/plans"
             onClick={closeMobileMenu}
@@ -660,8 +608,6 @@ function Navbar() {
           >
             Plans
           </a>
-
-          {/* FEATURES */}
 
           <div className="border-b border-[#e0e5e7]">
             <button
@@ -737,8 +683,6 @@ function Navbar() {
             )}
           </div>
 
-          {/* DOMAINS */}
-
           <a
             href="/domains"
             onClick={closeMobileMenu}
@@ -758,8 +702,6 @@ function Navbar() {
           >
             Domains
           </a>
-
-          {/* RESOURCES */}
 
           <div className="border-b border-[#e0e5e7]">
             <button
@@ -846,8 +788,6 @@ function Navbar() {
             )}
           </div>
 
-          {/* LOGIN */}
-
           <button
             type="button"
             className="
@@ -871,8 +811,6 @@ function Navbar() {
           >
             Log In
           </button>
-
-          {/* SIGN UP */}
 
           <button
             type="button"

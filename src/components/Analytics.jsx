@@ -40,10 +40,6 @@ function Analytics() {
 
   return (
     <>
-      {/* =====================================================
-          LINK SHORTENING DONE QUICK AND EASY
-      ===================================================== */}
-
       <section className="overflow-hidden bg-[#1594a5] py-0">
         <div className="mx-auto w-[calc(100%-80px)] max-w-[1240px] max-[900px]:w-[calc(100%-40px)] max-[600px]:w-[calc(100%-30px)]">
           <div
@@ -57,10 +53,6 @@ function Analytics() {
               max-[900px]:gap-0
             "
           >
-            {/* =================================================
-                IMAGE
-            ================================================= */}
-
             <div
               className="
                 h-[566px]
@@ -83,10 +75,6 @@ function Analytics() {
                 "
               />
             </div>
-
-            {/* =================================================
-                CONTENT
-            ================================================= */}
 
             <div
               className="
@@ -161,8 +149,6 @@ function Analytics() {
                   the experiences they deserve!
                 </p>
 
-                {/* BUTTONS */}
-
                 <div
                   className="
                     flex
@@ -216,10 +202,6 @@ function Analytics() {
         </div>
       </section>
 
-      {/* =====================================================
-          ONE STOP SOLUTION
-      ===================================================== */}
-
       <section
         className="
           bg-white
@@ -237,10 +219,6 @@ function Analytics() {
             max-[600px]:w-[calc(100%-30px)]
           "
         >
-          {/* =================================================
-              HEADING
-          ================================================= */}
-
           <div
             className="
               mx-auto
@@ -302,10 +280,6 @@ function Analytics() {
             </button>
           </div>
 
-          {/* =================================================
-              FEATURE SHOWCASE
-          ================================================= */}
-
           <div
             className="
               grid
@@ -317,10 +291,6 @@ function Analytics() {
               max-[1000px]:gap-[30px]
             "
           >
-            {/* =================================================
-                LEFT CONTENT
-            ================================================= */}
-
             <div className="flex flex-col gap-[8px]">
               {cards.slice(0, 3).map((card, index) => (
                 <div
@@ -375,10 +345,6 @@ function Analytics() {
               ))}
             </div>
 
-            {/* =================================================
-                CENTER IMAGE
-            ================================================= */}
-
             <div
               className="
                 flex
@@ -417,10 +383,6 @@ function Analytics() {
                 />
               )}
             </div>
-
-            {/* =================================================
-                RIGHT CONTENT
-            ================================================= */}
 
             <div className="flex flex-col gap-[8px]">
               {cards.slice(3, 6).map((card, index) => {

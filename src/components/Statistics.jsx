@@ -14,8 +14,6 @@ function Statistics() {
           max-[900px]:grid-cols-1
         "
       >
-        {/* LEFT BLUE CONTENT */}
-
         <div
           className="
             flex
@@ -46,8 +44,6 @@ function Statistics() {
           "
         >
           <div className="w-full max-w-[675px]">
-            {/* HEADING */}
-
             <h2
               className="
                 mb-[22px]
@@ -79,8 +75,6 @@ function Statistics() {
               Landscape Since ‘02
             </h2>
 
-            {/* DESCRIPTION */}
-
             <p
               className="
                 mb-[35px]
@@ -104,8 +98,6 @@ function Statistics() {
               influencers, small business owners, and large businesses.
             </p>
 
-            {/* STATS */}
-
             <div
               className="
                 flex
@@ -120,8 +112,6 @@ function Statistics() {
                 max-[400px]:gap-[16px]
               "
             >
-              {/* BILLIONS */}
-
               <div
                 className="
                   grid
@@ -180,8 +170,6 @@ function Statistics() {
                 </span>
               </div>
 
-              {/* YEARS */}
-
               <div
                 className="
                   grid
@@ -239,8 +227,6 @@ function Statistics() {
                   of shortening URLs
                 </span>
               </div>
-
-              {/* TINYURLS */}
 
               <div
                 className="
@@ -304,8 +290,6 @@ function Statistics() {
           </div>
         </div>
 
-        {/* IMAGE */}
-
         <div
           className="
             relative
@@ -343,8 +327,6 @@ function Statistics() {
             "
           />
         </div>
-
-        {/* BLUE SPACE AT FAR RIGHT */}
 
         <div className="bg-[#032b47] max-[900px]:hidden" />
       </div>

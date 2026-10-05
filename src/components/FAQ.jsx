@@ -81,8 +81,6 @@ function FAQ() {
           max-[400px]:gap-[25px]
         "
       >
-        {/* LEFT SIDE */}
-
         <div
           className="
             flex
@@ -127,8 +125,6 @@ function FAQ() {
           </h2>
         </div>
 
-        {/* RIGHT SIDE */}
-
         <div className="w-full border-t border-[#d8e0e4]">
           {questions.map((item, index) => {
             const isOpen = open === index;
@@ -138,8 +134,6 @@ function FAQ() {
                 key={item.question}
                 className="border-b border-[#d8e0e4]"
               >
-                {/* QUESTION */}
-
                 <button
                   type="button"
                   onClick={() => setOpen(isOpen ? null : index)}
@@ -217,8 +211,6 @@ function FAQ() {
                     )}
                   </span>
                 </button>
-
-                {/* ANSWER */}
 
                 {isOpen && (
                   <div

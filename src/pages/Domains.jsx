@@ -8,10 +8,6 @@ import Navbar from "../components/Navbar";
 import CTA from "../components/CTA";
 import Footer from "../components/Footer";
 
-/* =========================================================
-   FAQ
-========================================================= */
-
 const faqs = [
   {
     question: "How Do I Create a Branded Link?",
@@ -37,10 +33,6 @@ const faqs = [
   },
 ];
 
-/* =========================================================
-   DOMAINS PAGE
-========================================================= */
-
 function Domains() {
   const [openFaq, setOpenFaq] = useState(null);
 
@@ -49,10 +41,6 @@ function Domains() {
       <Navbar />
 
       <main>
-        {/* =====================================================
-            1. HERO
-        ===================================================== */}
-
         <section
           className="
             overflow-hidden
@@ -83,8 +71,6 @@ function Domains() {
               max-[900px]:gap-[35px]
             "
           >
-            {/* HERO CONTENT */}
-
             <div className="text-white">
               <h1
                 className="
@@ -181,8 +167,6 @@ function Domains() {
               </a>
             </div>
 
-            {/* HERO IMAGE */}
-
             <div
               className="
                 flex
@@ -212,10 +196,6 @@ function Domains() {
             </div>
           </div>
         </section>
-
-        {/* =====================================================
-            2. HOW YOU CAN USE BRANDED DOMAINS
-        ===================================================== */}
 
         <section
           className="
@@ -282,8 +262,6 @@ function Domains() {
                 max-[600px]:gap-[25px]
               "
             >
-              {/* REGISTER A DOMAIN */}
-
               <article
                 className="
                   rounded-[10px]
@@ -347,8 +325,6 @@ function Domains() {
                 </div>
               </article>
 
-              {/* BRING YOUR OWN DOMAIN */}
-
               <article
                 className="
                   rounded-[10px]
@@ -411,8 +387,6 @@ function Domains() {
                   </div>
                 </div>
               </article>
-
-              {/* BRING YOUR OWN SUBDOMAIN */}
 
               <article
                 className="
@@ -479,10 +453,6 @@ function Domains() {
           </div>
         </section>
 
-        {/* =====================================================
-            3. FIRST YEAR FREE
-        ===================================================== */}
-
         <section className="overflow-hidden bg-[#168d9b]">
           <div
             className="
@@ -495,8 +465,6 @@ function Domains() {
               max-[767px]:grid-cols-1
             "
           >
-            {/* IMAGE */}
-
             <div
               className="
                 h-full
@@ -533,8 +501,6 @@ function Domains() {
                 "
               />
             </div>
-
-            {/* CONTENT */}
 
             <div
               className="
@@ -674,10 +640,6 @@ function Domains() {
           </div>
         </section>
 
-        {/* =====================================================
-            4. SEND LINKS
-        ===================================================== */}
-
         <section
           className="
             bg-white
@@ -764,10 +726,6 @@ function Domains() {
             </div>
           </div>
         </section>
-
-        {/* =====================================================
-            5. SERVE SHORT LINKS
-        ===================================================== */}
 
         <section
           className="
@@ -863,10 +821,6 @@ function Domains() {
           </div>
         </section>
 
-        {/* =====================================================
-            6. QUICK CONFIGURATION
-        ===================================================== */}
-
         <section
           className="
             bg-white
@@ -953,10 +907,6 @@ function Domains() {
             </div>
           </div>
         </section>
-
-        {/* =====================================================
-            7. COMPLETE MANAGEMENT
-        ===================================================== */}
 
         <section
           className="
@@ -1052,10 +1002,6 @@ function Domains() {
           </div>
         </section>
 
-        {/* =====================================================
-            8. FAQ
-        ===================================================== */}
-
         <section
           id="faq"
           className="
@@ -1093,8 +1039,6 @@ function Domains() {
               max-[600px]:gap-[30px]
             "
           >
-            {/* FAQ TITLE */}
-
             <div
               className="
                 flex
@@ -1138,8 +1082,6 @@ function Domains() {
                 </span>
               </h2>
             </div>
-
-            {/* FAQ ITEMS */}
 
             <div className="w-full border-t border-[#d8e0e4]">
               {faqs.map((item, index) => {
@@ -1254,10 +1196,6 @@ function Domains() {
             </div>
           </div>
         </section>
-
-        {/* =====================================================
-            9. CTA
-        ===================================================== */}
 
         <CTA />
       </main>

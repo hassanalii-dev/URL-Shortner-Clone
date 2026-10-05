@@ -29,8 +29,6 @@ function Hero({ links, onCreate }) {
           max-[400px]:w-[calc(100%-24px)]
         "
       >
-        {/* MAIN HERO GRID */}
-
         <div
           className="
             grid
@@ -47,8 +45,6 @@ function Hero({ links, onCreate }) {
             max-[950px]:gap-[45px]
           "
         >
-          {/* LEFT CONTENT */}
-
           <div className="text-white">
             <h1
               className="
@@ -128,8 +124,6 @@ function Hero({ links, onCreate }) {
               powerful features with our paid plans.
             </p>
 
-            {/* BUTTONS */}
-
             <div
               className="
                 flex
@@ -182,8 +176,6 @@ function Hero({ links, onCreate }) {
             </div>
           </div>
 
-          {/* RIGHT — SHORTENER */}
-
           <div
             className="
               w-full
@@ -195,8 +187,6 @@ function Hero({ links, onCreate }) {
             <Shortener onCreate={onCreate} />
           </div>
         </div>
-
-        {/* RECENT LINKS */}
 
         <div
           className="

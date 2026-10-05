@@ -3,8 +3,6 @@ import { Info } from "lucide-react";
 function RecentLinks({ links }) {
   return (
     <div className="w-full">
-      {/* TITLE */}
-
       <h2
         className="
           mb-[23px]
@@ -23,8 +21,6 @@ function RecentLinks({ links }) {
       >
         Your Recent Links:
       </h2>
-
-      {/* LINKS CONTAINER */}
 
       <div
         className="
@@ -69,8 +65,6 @@ function RecentLinks({ links }) {
                   max-[450px]:gap-[8px]
                 "
               >
-                {/* LINK INFORMATION */}
-
                 <div
                   className="
                     flex
@@ -111,8 +105,6 @@ function RecentLinks({ links }) {
                   </span>
                 </div>
 
-                {/* OPEN BUTTON */}
-
                 <a
                   href={link.original}
                   target="_blank"
@@ -146,8 +138,6 @@ function RecentLinks({ links }) {
             ))}
           </div>
         ) : (
-          /* EMPTY STATE */
-
           <div
             className="
               flex

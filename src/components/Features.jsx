@@ -47,8 +47,6 @@ function Features() {
           max-[400px]:w-[calc(100%-24px)]
         "
       >
-        {/* SECTION TITLE */}
-
         <h2
           className="
             mb-[55px]
@@ -75,8 +73,6 @@ function Features() {
         >
           TinyURL Plans Include:
         </h2>
-
-        {/* FEATURES GRID */}
 
         <div
           className="
@@ -107,8 +103,6 @@ function Features() {
                 min-w-0
               "
             >
-              {/* CONTENT */}
-
               <div>
                 <h3
                   className="
@@ -144,8 +138,6 @@ function Features() {
                   {feature.text}
                 </p>
               </div>
-
-              {/* IMAGE ONLY */}
 
               <div
                 className="
