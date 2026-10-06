@@ -10,6 +10,8 @@ import {
   Check,
 } from "lucide-react";
 
+const API_URL = "https://serverrunning-3e45gjc7.b4a.run";
+
 function Shortener({ onCreate }) {
   const [activeTab, setActiveTab] = useState("shorten");
 
@@ -20,9 +22,11 @@ function Shortener({ onCreate }) {
   const [result, setResult] = useState("");
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  function createLink() {
+  async function createLink() {
     setError("");
+    setResult("");
 
     if (!url.trim()) {
       setError("Please enter a URL.");
@@ -45,19 +49,41 @@ function Shortener({ onCreate }) {
       return;
     }
 
-    const generatedAlias =
-      alias.trim() || Math.random().toString(36).slice(2, 9);
+    try {
+      setLoading(true);
 
-    const generated = `https://${domain}/${generatedAlias}`;
-
-    setResult(generated);
-
-    if (onCreate) {
-      onCreate({
-        id: Date.now(),
-        original: finalUrl,
-        short: generated,
+      const response = await fetch(`${API_URL}/save`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          longUrl: finalUrl,
+        }),
       });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.ok) {
+        throw new Error("Failed to create short URL.");
+      }
+
+      setResult(data.shortURL);
+
+      if (onCreate) {
+        onCreate({
+          id: Date.now(),
+          original: finalUrl,
+          short: data.shortURL,
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      setError(
+        "Unable to create short link. Please check your backend server."
+      );
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -449,6 +475,7 @@ function Shortener({ onCreate }) {
 
           <button
             onClick={createLink}
+            disabled={loading}
             className="
               mt-[27px]
               h-[46px]
@@ -462,6 +489,8 @@ function Shortener({ onCreate }) {
               duration-200
               hover:bg-[#197a3d]
               active:scale-[0.99]
+              disabled:cursor-not-allowed
+              disabled:opacity-70
 
               max-[600px]:mt-[23px]
               max-[600px]:h-[44px]
@@ -471,7 +500,9 @@ function Shortener({ onCreate }) {
               max-[400px]:text-[15px]
             "
           >
-            {activeTab === "shorten"
+            {loading
+              ? "Creating..."
+              : activeTab === "shorten"
               ? "Shorten Link"
               : "Generate QR Code"}
           </button>
