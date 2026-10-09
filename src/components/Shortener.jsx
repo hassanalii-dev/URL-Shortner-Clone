@@ -10,7 +10,7 @@ Copy,
 Check,
 } from "lucide-react";
 
-const API_URL = "https://exquisite-energy-production-6fc9.up.railway.app";
+const API_URL = "https://url-short-by-hassan-ali.up.railway.app";
 
 function Shortener({ onCreate }) {
 const [activeTab, setActiveTab] = useState("shorten");
