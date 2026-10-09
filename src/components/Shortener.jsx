@@ -1,319 +1,353 @@
-
 import { useState } from "react";
 import {
-  Link2,
-  QrCode,
-  Send,
-  Globe2,
-  PenLine,
-  ChevronDown,
-  Copy,
-  Check,
+Link2,
+QrCode,
+Send,
+Globe2,
+PenLine,
+ChevronDown,
+Copy,
+Check,
 } from "lucide-react";
 
-const API_URL = "https://server-running-production.up.railway.app";
+const API_URL = "https://exquisite-energy-production-6fc9.up.railway.app";
 
 function Shortener({ onCreate }) {
-  const [activeTab, setActiveTab] = useState("shorten");
-  const [url, setUrl] = useState("");
-  const [domain, setDomain] = useState("tinyurl.com");
-  const [alias, setAlias] = useState("");
-  const [result, setResult] = useState("");
-  const [copied, setCopied] = useState(false);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+const [activeTab, setActiveTab] = useState("shorten");
+const [url, setUrl] = useState("");
+const [domain, setDomain] = useState("tinyurl.com");
+const [alias, setAlias] = useState("");
+const [result, setResult] = useState("");
+const [copied, setCopied] = useState(false);
+const [error, setError] = useState("");
+const [loading, setLoading] = useState(false);
 
-  async function createLink() {
-    setError("");
-    setResult("");
-    setCopied(false);
+async function createLink() {
+setError("");
+setResult("");
+setCopied(false);
 
-    if (!url.trim()) {
-      setError("Please enter a URL.");
-      return;
-    }
+if (!url.trim()) {
+  setError("Please enter a URL.");
+  return;
+}
 
-    let finalUrl = url.trim();
+let finalUrl = url.trim();
 
-    if (
-      !finalUrl.startsWith("http://") &&
-      !finalUrl.startsWith("https://")
-    ) {
-      finalUrl = `https://${finalUrl}`;
-    }
+if (!/^https?:\/\//i.test(finalUrl)) {
+  finalUrl = `https://${finalUrl}`;
+}
 
-    try {
-      new URL(finalUrl);
-    } catch {
-      setError("Please enter a valid URL.");
-      return;
-    }
+try {
+  const parsedUrl = new URL(finalUrl);
 
-    if (alias.trim() && alias.trim().length < 5) {
-      setError("Alias must be at least 5 characters.");
-      return;
-    }
+  if (
+    !["http:", "https:"].includes(parsedUrl.protocol) ||
+    !parsedUrl.hostname.includes(".")
+  ) {
+    throw new Error("Invalid URL");
+  }
+} catch {
+  setError("Please enter a valid URL.");
+  return;
+}
 
-    try {
-      setLoading(true);
+if (alias.trim() && alias.trim().length < 5) {
+  setError("Alias must be at least 5 characters.");
+  return;
+}
 
-      const response = await fetch(`${API_URL}/save`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          longUrl: finalUrl,
-        }),
-      });
+try {
+  setLoading(true);
 
-      const data = await response.json();
+  const response = await fetch(`${API_URL}/save`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      longUrl: finalUrl,
+      domain,
+      alias: alias.trim() || undefined,
+    }),
+  });
 
-      if (!response.ok || !data.ok || !data.shortURL) {
-        throw new Error(
-          data.error || data.message || "Failed to create short URL."
-        );
-      }
+  const responseText = await response.text();
+  let data = {};
 
-      setResult(data.shortURL);
-
-      if (onCreate) {
-        onCreate({
-          id: Date.now(),
-          original: finalUrl,
-          short: data.shortURL,
-        });
-      }
-    } catch (err) {
-      console.error("Short URL Error:", err);
-      setError(
-        "Unable to create short link. Check your Railway backend and API routes."
-      );
-    } finally {
-      setLoading(false);
-    }
+  try {
+    data = JSON.parse(responseText);
+  } catch {
+    throw new Error(
+      `Backend returned an invalid response (${response.status}). Check your backend route and deployment.`
+    );
   }
 
-  async function copyResult() {
-    if (!result) return;
-
-    try {
-      await navigator.clipboard.writeText(result);
-      setCopied(true);
-
-      setTimeout(() => {
-        setCopied(false);
-      }, 1500);
-    } catch {
-      setError("Unable to copy the URL.");
-    }
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+        data.error ||
+        `Backend request failed (${response.status}).`
+    );
   }
 
-  return (
-    <div className="w-full">
-      <div className="w-full overflow-hidden rounded-[10px] bg-[#f5f6f7] shadow-[0_8px_25px_rgba(0,0,0,0.08)] max-[600px]:rounded-[8px]">
-        <div className="flex h-[72px] max-[700px]:h-[64px] max-[500px]:h-[58px]">
-          <button
-            type="button"
-            onClick={() => setActiveTab("shorten")}
-            className={`flex flex-1 items-center justify-center gap-[15px] text-[19px] font-bold transition-all duration-200 max-[700px]:gap-[10px] max-[700px]:text-[17px] max-[500px]:gap-[7px] max-[500px]:text-[14px] max-[380px]:text-[13px] ${
+  const shortURL = data.shortURL || data.shortUrl || data.shortUrlId;
+
+  if (!shortURL) {
+    throw new Error(
+      data.message ||
+        data.error ||
+        "Backend did not return a short URL. Check your SaveURL controller."
+    );
+  }
+
+  const shortURLString = String(shortURL);
+
+  const completeShortURL = /^https?:\/\//i.test(shortURLString)
+    ? shortURLString
+    : `${API_URL}/${shortURLString.replace(/^\/+/, "")}`;
+
+  setResult(completeShortURL);
+
+  if (onCreate) {
+    onCreate({
+      id: Date.now(),
+      original: finalUrl,
+      short: completeShortURL,
+    });
+  }
+} catch (err) {
+  console.error("Short URL Error:", err);
+
+  if (err instanceof TypeError) {
+    setError(
+      "Cannot connect to Railway. Check the backend URL, deployment status, and CORS settings."
+    );
+  } else {
+    setError(err.message || "Unable to create short link.");
+  }
+} finally {
+  setLoading(false);
+}
+
+}
+
+async function copyResult() {
+if (!result) return;
+
+try {
+  await navigator.clipboard.writeText(result);
+  setCopied(true);
+  setTimeout(() => setCopied(false), 1500);
+} catch {
+  setError("Unable to copy the URL. Please copy it manually.");
+}
+
+}
+
+return ( <div className="w-full"> <div className="w-full overflow-hidden rounded-[10px] bg-[#f5f6f7] shadow-[0_8px_25px_rgba(0,0,0,0.08)] max-[600px]:rounded-[8px]"> <div className="flex h-[72px] max-[700px]:h-[64px] max-[500px]:h-[58px]">
+<button
+type="button"
+onClick={() => setActiveTab("shorten")}
+className={`flex flex-1 items-center justify-center gap-[15px] text-[19px] font-bold transition-all duration-200 max-[700px]:gap-[10px] max-[700px]:text-[17px] max-[500px]:gap-[7px] max-[500px]:text-[14px] max-[380px]:text-[13px] ${
               activeTab === "shorten"
                 ? "bg-white text-[#17202a]"
                 : "bg-[#16869f] text-white"
             }`}
-          >
-            <Link2
-              size={21}
-              strokeWidth={2.5}
-              className="shrink-0 max-[500px]:h-[18px] max-[500px]:w-[18px]"
-            />
-            <span className="whitespace-nowrap">Shorten a Link</span>
-          </button>
+> <Link2
+           size={21}
+           strokeWidth={2.5}
+           className="shrink-0 max-[500px]:h-[18px] max-[500px]:w-[18px]"
+         /> <span className="whitespace-nowrap">Shorten a Link</span> </button>
 
-          <button
-            type="button"
-            onClick={() => setActiveTab("qr")}
-            className={`flex flex-1 items-center justify-center gap-[15px] text-[19px] font-bold transition-all duration-200 max-[700px]:gap-[10px] max-[700px]:text-[17px] max-[500px]:gap-[7px] max-[500px]:text-[14px] max-[380px]:text-[13px] ${
-              activeTab === "qr"
-                ? "bg-white text-[#17202a]"
-                : "bg-[#16869f] text-white"
-            }`}
-          >
-            <QrCode
-              size={20}
-              strokeWidth={2.5}
-              className="shrink-0 max-[500px]:h-[18px] max-[500px]:w-[18px]"
-            />
-            <span className="whitespace-nowrap">Generate QR Code</span>
-          </button>
-        </div>
+      <button
+        type="button"
+        onClick={() => setActiveTab("qr")}
+        className={`flex flex-1 items-center justify-center gap-[15px] text-[19px] font-bold transition-all duration-200 max-[700px]:gap-[10px] max-[700px]:text-[17px] max-[500px]:gap-[7px] max-[500px]:text-[14px] max-[380px]:text-[13px] ${
+          activeTab === "qr"
+            ? "bg-white text-[#17202a]"
+            : "bg-[#16869f] text-white"
+        }`}
+      >
+        <QrCode
+          size={20}
+          strokeWidth={2.5}
+          className="shrink-0 max-[500px]:h-[18px] max-[500px]:w-[18px]"
+        />
+        <span className="whitespace-nowrap">Generate QR Code</span>
+      </button>
+    </div>
 
-        <div className="px-[23px] pb-[24px] pt-[27px] max-[800px]:px-[20px] max-[600px]:px-[16px] max-[600px]:pb-[20px] max-[600px]:pt-[22px] max-[400px]:px-[12px] max-[400px]:pb-[18px] max-[400px]:pt-[19px]">
+    <div className="px-[23px] pb-[24px] pt-[27px] max-[800px]:px-[20px] max-[600px]:px-[16px] max-[600px]:pb-[20px] max-[600px]:pt-[22px] max-[400px]:px-[12px] max-[400px]:pb-[18px] max-[400px]:pt-[19px]">
+      <label
+        htmlFor="longUrl"
+        className="mb-[10px] flex items-center gap-[8px] text-[18px] font-medium text-[#111827] max-[700px]:text-[17px] max-[600px]:gap-[7px] max-[600px]:text-[15px] max-[400px]:text-[14px]"
+      >
+        <Send
+          size={18}
+          strokeWidth={2.5}
+          className="shrink-0 max-[600px]:h-[17px] max-[600px]:w-[17px]"
+        />
+        <span>
+          Long URL <b className="ml-[4px] text-[#c53b4a]">*</b>
+        </span>
+      </label>
+
+      <input
+        id="longUrl"
+        type="text"
+        placeholder="Paste long URL here"
+        value={url}
+        onChange={(e) => setUrl(e.target.value)}
+        className="h-[43px] w-full rounded-[5px] border border-[#cbd2d8] bg-white px-[12px] text-[16px] text-[#334155] outline-none transition-all placeholder:text-[#66717b] focus:border-[#16869f] focus:ring-[2px] focus:ring-[#16869f]/15 max-[600px]:h-[42px] max-[600px]:px-[10px] max-[600px]:text-[14px] max-[400px]:h-[40px] max-[400px]:text-[13px]"
+      />
+
+      <div className="mt-[23px] grid grid-cols-2 gap-[30px] max-[900px]:gap-[20px] max-[600px]:mt-[19px] max-[600px]:grid-cols-1 max-[600px]:gap-[17px]">
+        <div>
           <label
-            htmlFor="longUrl"
-            className="mb-[10px] flex items-center gap-[8px] text-[18px] font-medium text-[#111827] max-[700px]:text-[17px] max-[600px]:gap-[7px] max-[600px]:text-[15px] max-[400px]:text-[14px]"
+            htmlFor="domain"
+            className="mb-[10px] flex items-center gap-[9px] text-[18px] font-medium text-[#111827] max-[700px]:text-[17px] max-[600px]:gap-[7px] max-[600px]:text-[15px] max-[400px]:text-[14px]"
           >
-            <Send
+            <Globe2
               size={18}
-              strokeWidth={2.5}
+              strokeWidth={2.3}
               className="shrink-0 max-[600px]:h-[17px] max-[600px]:w-[17px]"
             />
-            <span>
-              Long URL <b className="ml-[4px] text-[#c53b4a]">*</b>
-            </span>
+            Domain
           </label>
 
-          <input
-            id="longUrl"
-            type="text"
-            placeholder="Paste long URL here"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            className="h-[43px] w-full rounded-[5px] border border-[#cbd2d8] bg-white px-[12px] text-[16px] text-[#334155] outline-none transition-all placeholder:text-[#66717b] focus:border-[#16869f] focus:ring-[2px] focus:ring-[#16869f]/15 max-[600px]:h-[42px] max-[600px]:px-[10px] max-[600px]:text-[14px] max-[400px]:h-[40px] max-[400px]:text-[13px]"
-          />
+          <div className="relative">
+            <select
+              id="domain"
+              value={domain}
+              onChange={(e) => setDomain(e.target.value)}
+              className="h-[43px] w-full appearance-none rounded-[5px] border border-[#cbd2d8] bg-white px-[12px] pr-[40px] text-[16px] text-[#334155] outline-none focus:border-[#16869f] focus:ring-[2px] focus:ring-[#16869f]/15 max-[600px]:h-[42px] max-[600px]:px-[10px] max-[600px]:pr-[38px] max-[600px]:text-[14px] max-[400px]:h-[40px] max-[400px]:text-[13px]"
+            >
+              <option value="tinyurl.com">tinyurl.com</option>
+            </select>
 
-          <div className="mt-[23px] grid grid-cols-2 gap-[30px] max-[900px]:gap-[20px] max-[600px]:mt-[19px] max-[600px]:grid-cols-1 max-[600px]:gap-[17px]">
-            <div>
-              <label
-                htmlFor="domain"
-                className="mb-[10px] flex items-center gap-[9px] text-[18px] font-medium text-[#111827] max-[700px]:text-[17px] max-[600px]:gap-[7px] max-[600px]:text-[15px] max-[400px]:text-[14px]"
-              >
-                <Globe2
-                  size={18}
-                  strokeWidth={2.3}
-                  className="shrink-0 max-[600px]:h-[17px] max-[600px]:w-[17px]"
-                />
-                Domain
-              </label>
+            <ChevronDown
+              size={20}
+              className="pointer-events-none absolute right-[10px] top-1/2 -translate-y-1/2 text-[#111827] max-[600px]:right-[9px] max-[600px]:h-[18px] max-[600px]:w-[18px]"
+            />
+          </div>
+        </div>
 
-              <div className="relative">
-                <select
-                  id="domain"
-                  value={domain}
-                  onChange={(e) => setDomain(e.target.value)}
-                  className="h-[43px] w-full appearance-none rounded-[5px] border border-[#cbd2d8] bg-white px-[12px] pr-[40px] text-[16px] text-[#334155] outline-none focus:border-[#16869f] focus:ring-[2px] focus:ring-[#16869f]/15 max-[600px]:h-[42px] max-[600px]:px-[10px] max-[600px]:pr-[38px] max-[600px]:text-[14px] max-[400px]:h-[40px] max-[400px]:text-[13px]"
-                >
-                  <option value="tinyurl.com">tinyurl.com</option>
-                </select>
+        <div>
+          <label
+            htmlFor="alias"
+            className="mb-[10px] flex items-center gap-[9px] text-[18px] font-medium text-[#111827] max-[700px]:text-[17px] max-[600px]:gap-[7px] max-[600px]:text-[15px] max-[400px]:text-[14px]"
+          >
+            <PenLine
+              size={18}
+              strokeWidth={2.3}
+              className="shrink-0 max-[600px]:h-[17px] max-[600px]:w-[17px]"
+            />
+            Alias (optional)
+          </label>
 
-                <ChevronDown
-                  size={20}
-                  className="pointer-events-none absolute right-[10px] top-1/2 -translate-y-1/2 text-[#111827] max-[600px]:right-[9px] max-[600px]:h-[18px] max-[600px]:w-[18px]"
-                />
-              </div>
-            </div>
+          <div className="flex h-[43px] overflow-hidden rounded-[5px] border border-[#cbd2d8] bg-white focus-within:border-[#16869f] focus-within:ring-[2px] focus-within:ring-[#16869f]/15 max-[600px]:h-[42px] max-[400px]:h-[40px]">
+            <span className="flex items-center px-[10px] text-[18px] text-[#111827] max-[600px]:px-[9px] max-[600px]:text-[16px] max-[400px]:px-[8px] max-[400px]:text-[15px]">
+              /
+            </span>
 
-            <div>
-              <label
-                htmlFor="alias"
-                className="mb-[10px] flex items-center gap-[9px] text-[18px] font-medium text-[#111827] max-[700px]:text-[17px] max-[600px]:gap-[7px] max-[600px]:text-[15px] max-[400px]:text-[14px]"
-              >
-                <PenLine
-                  size={18}
-                  strokeWidth={2.3}
-                  className="shrink-0 max-[600px]:h-[17px] max-[600px]:w-[17px]"
-                />
-                Alias (optional)
-              </label>
-
-              <div className="flex h-[43px] overflow-hidden rounded-[5px] border border-[#cbd2d8] bg-white focus-within:border-[#16869f] focus-within:ring-[2px] focus-within:ring-[#16869f]/15 max-[600px]:h-[42px] max-[400px]:h-[40px]">
-                <span className="flex items-center px-[10px] text-[18px] text-[#111827] max-[600px]:px-[9px] max-[600px]:text-[16px] max-[400px]:px-[8px] max-[400px]:text-[15px]">
-                  /
-                </span>
-
-                <input
-                  id="alias"
-                  type="text"
-                  placeholder="Add alias here"
-                  value={alias}
-                  onChange={(e) => setAlias(e.target.value)}
-                  className="min-w-0 flex-1 border-0 bg-transparent px-[2px] text-[16px] text-[#334155] outline-none placeholder:text-[#66717b] max-[600px]:text-[14px] max-[400px]:text-[13px]"
-                />
-              </div>
-
-              <small className="mt-[5px] block text-[11px] text-[#66717b] max-[600px]:text-[10px]">
-                Must be at least 5 characters
-              </small>
-            </div>
+            <input
+              id="alias"
+              type="text"
+              placeholder="Add alias here"
+              value={alias}
+              onChange={(e) => setAlias(e.target.value)}
+              className="min-w-0 flex-1 border-0 bg-transparent px-[2px] text-[16px] text-[#334155] outline-none placeholder:text-[#66717b] max-[600px]:text-[14px] max-[400px]:text-[13px]"
+            />
           </div>
 
-          {error && (
-            <div className="mt-[13px] rounded-[5px] border border-red-200 bg-red-50 px-[12px] py-[8px] text-[13px] font-medium text-red-600 max-[600px]:mt-[11px] max-[600px]:px-[10px] max-[600px]:py-[7px] max-[600px]:text-[12px]">
-              {error}
-            </div>
-          )}
+          <small className="mt-[5px] block text-[11px] text-[#66717b] max-[600px]:text-[10px]">
+            Must be at least 5 characters
+          </small>
+        </div>
+      </div>
+
+      {error && (
+        <div
+          role="alert"
+          className="mt-[13px] break-words rounded-[5px] border border-red-200 bg-red-50 px-[12px] py-[8px] text-[13px] font-medium text-red-600 max-[600px]:mt-[11px] max-[600px]:px-[10px] max-[600px]:py-[7px] max-[600px]:text-[12px]"
+        >
+          {error}
+        </div>
+      )}
+
+      <button
+        type="button"
+        onClick={createLink}
+        disabled={loading}
+        className="mt-[27px] h-[46px] w-full rounded-[5px] bg-[#218c48] text-[19px] font-medium text-white transition-all duration-200 hover:bg-[#197a3d] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-70 max-[600px]:mt-[23px] max-[600px]:h-[44px] max-[600px]:text-[16px] max-[400px]:h-[42px] max-[400px]:text-[15px]"
+      >
+        {loading
+          ? "Creating..."
+          : activeTab === "shorten"
+            ? "Shorten Link"
+            : "Generate QR Code"}
+      </button>
+
+      <p className="mt-[20px] text-[13px] italic leading-[1.35] text-[#111827] max-[600px]:mt-[16px] max-[600px]:text-[11px] max-[600px]:leading-[1.5] max-[400px]:text-[10px]">
+        By clicking Shorten Link, you agree with our{" "}
+        <a href="#" className="text-[#16869f] hover:underline">
+          Terms of Service
+        </a>
+        ,{" "}
+        <a href="#" className="text-[#16869f] hover:underline">
+          Privacy Policy
+        </a>
+        , and{" "}
+        <a href="#" className="text-[#16869f] hover:underline">
+          Use of Cookies
+        </a>
+        .
+      </p>
+
+      {result && (
+        <div className="mt-[18px] flex items-center justify-between gap-[12px] rounded-[6px] border border-[#b7dfe4] bg-[#eefbfc] px-[13px] py-[11px] max-[600px]:mt-[15px] max-[600px]:gap-[9px] max-[600px]:px-[10px] max-[600px]:py-[9px] max-[400px]:px-[8px]">
+          <div className="min-w-0 flex-1">
+            <span className="mb-[3px] block text-[11px] text-[#66717b] max-[600px]:text-[10px]">
+              Your shortened link
+            </span>
+
+            <a
+              href={result}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block truncate text-[14px] font-semibold text-[#16869f] hover:underline max-[600px]:text-[12px] max-[400px]:text-[11px]"
+              title={result}
+            >
+              {result}
+            </a>
+          </div>
 
           <button
             type="button"
-            onClick={createLink}
-            disabled={loading}
-            className="mt-[27px] h-[46px] w-full rounded-[5px] bg-[#218c48] text-[19px] font-medium text-white transition-all duration-200 hover:bg-[#197a3d] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-70 max-[600px]:mt-[23px] max-[600px]:h-[44px] max-[600px]:text-[16px] max-[400px]:h-[42px] max-[400px]:text-[15px]"
+            onClick={copyResult}
+            aria-label="Copy shortened link"
+            className="flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded-[5px] bg-[#16869f] text-white transition hover:bg-[#087f91] max-[600px]:h-[32px] max-[600px]:w-[32px] max-[400px]:h-[30px] max-[400px]:w-[30px]"
           >
-            {loading
-              ? "Creating..."
-              : activeTab === "shorten"
-                ? "Shorten Link"
-                : "Generate QR Code"}
+            {copied ? (
+              <Check
+                size={18}
+                className="max-[600px]:h-[16px] max-[600px]:w-[16px]"
+              />
+            ) : (
+              <Copy
+                size={18}
+                className="max-[600px]:h-[16px] max-[600px]:w-[16px]"
+              />
+            )}
           </button>
-
-          <p className="mt-[20px] text-[13px] italic leading-[1.35] text-[#111827] max-[600px]:mt-[16px] max-[600px]:text-[11px] max-[600px]:leading-[1.5] max-[400px]:text-[10px]">
-            By clicking Shorten Link, you agree with our{" "}
-            <a href="#" className="text-[#16869f] hover:underline">
-              Terms of Service
-            </a>
-            ,{" "}
-            <a href="#" className="text-[#16869f] hover:underline">
-              Privacy Policy
-            </a>
-            , and{" "}
-            <a href="#" className="text-[#16869f] hover:underline">
-              Use of Cookies
-            </a>
-            .
-          </p>
-
-          {result && (
-            <div className="mt-[18px] flex items-center justify-between gap-[12px] rounded-[6px] border border-[#b7dfe4] bg-[#eefbfc] px-[13px] py-[11px] max-[600px]:mt-[15px] max-[600px]:gap-[9px] max-[600px]:px-[10px] max-[600px]:py-[9px] max-[400px]:px-[8px]">
-              <div className="min-w-0 flex-1">
-                <span className="mb-[3px] block text-[11px] text-[#66717b] max-[600px]:text-[10px]">
-                  Your shortened link
-                </span>
-
-                <a
-                  href={result}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="block truncate text-[14px] font-semibold text-[#16869f] hover:underline max-[600px]:text-[12px] max-[400px]:text-[11px]"
-                  title={result}
-                >
-                  {result}
-                </a>
-              </div>
-
-              <button
-                type="button"
-                onClick={copyResult}
-                aria-label="Copy shortened link"
-                className="flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded-[5px] bg-[#16869f] text-white transition hover:bg-[#087f91] max-[600px]:h-[32px] max-[600px]:w-[32px] max-[400px]:h-[30px] max-[400px]:w-[30px]"
-              >
-                {copied ? (
-                  <Check
-                    size={18}
-                    className="max-[600px]:h-[16px] max-[600px]:w-[16px]"
-                  />
-                ) : (
-                  <Copy
-                    size={18}
-                    className="max-[600px]:h-[16px] max-[600px]:w-[16px]"
-                  />
-                )}
-              </button>
-            </div>
-          )}
         </div>
-      </div>
+      )}
     </div>
-  );
+  </div>
+</div>
+
+);
 }
 
 export default Shortener;
