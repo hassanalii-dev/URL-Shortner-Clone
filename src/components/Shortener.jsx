@@ -10,7 +10,7 @@ Copy,
 Check,
 } from "lucide-react";
 
-const API_URL = "https://url-short-by-hassan-ali.up.railway.app";
+const API_URL = "http://localhost:5050";
 
 function Shortener({ onCreate }) {
 const [activeTab, setActiveTab] = useState("shorten");
@@ -121,7 +121,7 @@ try {
 
   if (err instanceof TypeError) {
     setError(
-      "Cannot connect to Railway. Check the backend URL, deployment status, and CORS settings."
+      ""
     );
   } else {
     setError(err.message || "Unable to create short link.");
