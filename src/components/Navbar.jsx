@@ -154,7 +154,7 @@ function Navbar() {
           <a
             href="/plans"
             onMouseEnter={() => setHoveredItem("plans")}
-            className={`
+            className="
               relative
               flex
               h-[70px]
@@ -163,23 +163,10 @@ function Navbar() {
               text-[16px]
               font-medium
               text-white
-
-              after:absolute
-              after:bottom-[17px]
-              after:left-0
-              after:h-[2px]
-              after:w-full
-              after:origin-center
-              after:bg-white
-              after:transition-transform
-              after:duration-200
-
-              ${
-                hoveredItem === "plans"
-                  ? "after:scale-x-100"
-                  : "after:scale-x-0"
-              }
-            `}
+              transition-opacity
+              duration-200
+              hover:opacity-80
+            "
           >
             Plans
           </a>
@@ -187,7 +174,7 @@ function Navbar() {
           <button
             type="button"
             onMouseEnter={() => handleMouseEnterMenu("features")}
-            className={`
+            className="
               relative
               flex
               h-[70px]
@@ -199,23 +186,10 @@ function Navbar() {
               text-[16px]
               font-medium
               text-white
-
-              after:absolute
-              after:bottom-[17px]
-              after:left-0
-              after:h-[2px]
-              after:w-full
-              after:origin-center
-              after:bg-white
-              after:transition-transform
-              after:duration-200
-
-              ${
-                hoveredItem === "features"
-                  ? "after:scale-x-100"
-                  : "after:scale-x-0"
-              }
-            `}
+              transition-opacity
+              duration-200
+              hover:opacity-80
+            "
           >
             Features
           </button>
@@ -223,7 +197,7 @@ function Navbar() {
           <a
             href="/domains"
             onMouseEnter={() => setHoveredItem("domains")}
-            className={`
+            className="
               relative
               flex
               h-[70px]
@@ -232,23 +206,10 @@ function Navbar() {
               text-[16px]
               font-medium
               text-white
-
-              after:absolute
-              after:bottom-[17px]
-              after:left-0
-              after:h-[2px]
-              after:w-full
-              after:origin-center
-              after:bg-white
-              after:transition-transform
-              after:duration-200
-
-              ${
-                hoveredItem === "domains"
-                  ? "after:scale-x-100"
-                  : "after:scale-x-0"
-              }
-            `}
+              transition-opacity
+              duration-200
+              hover:opacity-80
+            "
           >
             Domains
           </a>
@@ -256,7 +217,7 @@ function Navbar() {
           <button
             type="button"
             onMouseEnter={() => handleMouseEnterMenu("resources")}
-            className={`
+            className="
               relative
               flex
               h-[70px]
@@ -268,23 +229,10 @@ function Navbar() {
               text-[16px]
               font-medium
               text-white
-
-              after:absolute
-              after:bottom-[17px]
-              after:left-0
-              after:h-[2px]
-              after:w-full
-              after:origin-center
-              after:bg-white
-              after:transition-transform
-              after:duration-200
-
-              ${
-                hoveredItem === "resources"
-                  ? "after:scale-x-100"
-                  : "after:scale-x-0"
-              }
-            `}
+              transition-opacity
+              duration-200
+              hover:opacity-80
+            "
           >
             Resources
           </button>
