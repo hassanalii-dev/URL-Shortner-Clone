@@ -45,7 +45,7 @@ function FacebookIcon() {
     <svg
       viewBox="0 0 24 24"
       aria-hidden="true"
-      className="h-[18px] w-[18px]"
+      className="h-[19px] w-[19px]"
     >
       <path
         fill="currentColor"
@@ -60,7 +60,7 @@ function InstagramIcon() {
     <svg
       viewBox="0 0 24 24"
       aria-hidden="true"
-      className="h-[18px] w-[18px]"
+      className="h-[19px] w-[19px]"
     >
       <rect
         x="3"
@@ -90,7 +90,7 @@ function LinkedinIcon() {
     <svg
       viewBox="0 0 24 24"
       aria-hidden="true"
-      className="h-[18px] w-[18px]"
+      className="h-[19px] w-[19px]"
     >
       <path
         fill="currentColor"
@@ -105,7 +105,7 @@ function XIcon() {
     <svg
       viewBox="0 0 24 24"
       aria-hidden="true"
-      className="h-[18px] w-[18px]"
+      className="h-[19px] w-[19px]"
     >
       <path
         fill="currentColor"
@@ -233,11 +233,11 @@ function Footer() {
                 mb-[28px]
                 flex
                 items-center
-                gap-[12px]
+                gap-[10px]
 
                 max-[900px]:mb-[25px]
 
-                max-[450px]:gap-[10px]
+                max-[450px]:gap-[8px]
               "
             >
               <a
@@ -245,20 +245,23 @@ function Footer() {
                 aria-label="Facebook"
                 className="
                   flex
-                  h-[36px]
-                  w-[36px]
+                  h-[38px]
+                  w-[38px]
                   items-center
                   justify-center
-                  rounded-[6px]
-                  bg-white/10
-                  text-white
+                  rounded-full
+                  border
+                  border-white/25
+                  text-white/80
                   transition-all
                   duration-200
-                  hover:scale-105
-                  hover:bg-white/20
+                  hover:-translate-y-[2px]
+                  hover:border-white
+                  hover:bg-white
+                  hover:text-[#063d56]
 
-                  max-[450px]:h-[34px]
-                  max-[450px]:w-[34px]
+                  max-[450px]:h-[36px]
+                  max-[450px]:w-[36px]
                 "
               >
                 <FacebookIcon />
@@ -269,20 +272,23 @@ function Footer() {
                 aria-label="Instagram"
                 className="
                   flex
-                  h-[36px]
-                  w-[36px]
+                  h-[38px]
+                  w-[38px]
                   items-center
                   justify-center
-                  rounded-[6px]
-                  bg-white/10
-                  text-white
+                  rounded-full
+                  border
+                  border-white/25
+                  text-white/80
                   transition-all
                   duration-200
-                  hover:scale-105
-                  hover:bg-white/20
+                  hover:-translate-y-[2px]
+                  hover:border-white
+                  hover:bg-white
+                  hover:text-[#063d56]
 
-                  max-[450px]:h-[34px]
-                  max-[450px]:w-[34px]
+                  max-[450px]:h-[36px]
+                  max-[450px]:w-[36px]
                 "
               >
                 <InstagramIcon />
@@ -293,20 +299,23 @@ function Footer() {
                 aria-label="LinkedIn"
                 className="
                   flex
-                  h-[36px]
-                  w-[36px]
+                  h-[38px]
+                  w-[38px]
                   items-center
                   justify-center
-                  rounded-[6px]
-                  bg-white/10
-                  text-white
+                  rounded-full
+                  border
+                  border-white/25
+                  text-white/80
                   transition-all
                   duration-200
-                  hover:scale-105
-                  hover:bg-white/20
+                  hover:-translate-y-[2px]
+                  hover:border-white
+                  hover:bg-white
+                  hover:text-[#063d56]
 
-                  max-[450px]:h-[34px]
-                  max-[450px]:w-[34px]
+                  max-[450px]:h-[36px]
+                  max-[450px]:w-[36px]
                 "
               >
                 <LinkedinIcon />
@@ -317,20 +326,23 @@ function Footer() {
                 aria-label="X"
                 className="
                   flex
-                  h-[36px]
-                  w-[36px]
+                  h-[38px]
+                  w-[38px]
                   items-center
                   justify-center
-                  rounded-[6px]
-                  bg-white/10
-                  text-white
+                  rounded-full
+                  border
+                  border-white/25
+                  text-white/80
                   transition-all
                   duration-200
-                  hover:scale-105
-                  hover:bg-white/20
+                  hover:-translate-y-[2px]
+                  hover:border-white
+                  hover:bg-white
+                  hover:text-[#063d56]
 
-                  max-[450px]:h-[34px]
-                  max-[450px]:w-[34px]
+                  max-[450px]:h-[36px]
+                  max-[450px]:w-[36px]
                 "
               >
                 <XIcon />
